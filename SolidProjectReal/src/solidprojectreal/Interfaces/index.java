@@ -22,24 +22,66 @@ public class index extends javax.swing.JFrame {
      */
     FileHandler file = new FileHandler();
     public int score;
+    public int scoreMedium;
+    public int scoreHard;
 
     public index() {
-        try {
-
-            file.readScore();
-            score = file.scoreFile;
-            file.readWordFile(score);
-
-        } catch (IOException ex) {
-            Logger.getLogger(index.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        initComponents();
         JOptionPane.showMessageDialog(null, "Welcome! Each correct guess "
                 + "will reward you with 2 points!");
-        file.readScore();
-        showScore.setText("Current Score: " + file.scoreFile);
+        
 
-        englishWordText.setText(file.getEnglishWord());
+        if (score <= 17) {
+
+            try {
+                file.readScore();
+                score = file.scoreFile;
+                file.readWordFileEasy(file.scoreFile);
+
+            } catch (IOException ex) {
+                Logger.getLogger(index.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            initComponents();
+
+            file.readScore();
+            showScore.setText("Current Score: " + file.scoreFile);
+
+            englishWordText.setText(file.getEnglishWord());
+        }
+
+        if (score > 18 || score == 18) {
+
+            try {
+                file.readScore();
+                scoreMedium = file.scoreFileMedium;
+                file.readWordFileMedium(file.scoreFileMedium);
+
+            } catch (IOException ex) {
+                Logger.getLogger(index.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            initComponents();
+
+            file.readScore();
+            showScore.setText("Current Score: " + score);
+
+            englishWordText.setText(file.englishWord);
+        }
+        
+        if(score > 36 || score == 36){
+            try {
+                file.readScore();
+                scoreHard = file.scoreFileHard;
+                file.readWordFileMedium(file.scoreFileHard);
+
+            } catch (IOException ex) {
+                Logger.getLogger(index.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            initComponents();
+
+            file.readScore();
+            showScore.setText("Current Score: " + score);
+
+            englishWordText.setText(file.englishWord);
+        }
 
     }
 
@@ -65,6 +107,7 @@ public class index extends javax.swing.JFrame {
         openShowWords = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        addWord = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,6 +122,11 @@ public class index extends javax.swing.JFrame {
         guess.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 guessActionPerformed(evt);
+            }
+        });
+        guess.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                Enter(evt);
             }
         });
 
@@ -107,38 +155,42 @@ public class index extends javax.swing.JFrame {
 
         jLabel5.setText("Your guess is:");
 
+        addWord.setText("Add Word");
+        addWord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addWordActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(167, 167, 167)
+                        .addComponent(addWord, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(61, 61, 61)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(guess, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(saveScore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(openShowWords, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(showScore, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(showScore, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel5))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -162,7 +214,9 @@ public class index extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(guess)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(saveScore)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(saveScore)
+                    .addComponent(addWord))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(openShowWords)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -184,48 +238,159 @@ public class index extends javax.swing.JFrame {
     }//GEN-LAST:event_openShowWordsActionPerformed
 
     private void guessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guessActionPerformed
-        if(score >= 18){
-        JOptionPane.showMessageDialog(null, "We ran out of words! You have won "
-                + "the game with: " + score + " Points!");
-        }else
-        try {
-            file.readScore();
-            file.readWordFile(score);
-
-        } catch (IOException ex) {
-            Logger.getLogger(index.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        englishWordText.setText("");
         englishWordText.setText(file.getEnglishWord());
-
-        if (danishWordText.getText().equals(file.getDanishWord())) {
-            score = score + 2;
-            JOptionPane.showMessageDialog(null, "Correct! \n \n "
-                    + "Current Points: " + score);
-            file.setScoreFile(score);
-            file.readScore();
-
+        System.out.println("easy level score er: " + score);
+        System.out.println("medium level score er: " + scoreMedium);
+        System.out.println("hard level score er: " + scoreHard);
+        System.out.println("Dansk ord er: " + file.danishWord);
+        System.out.println("Engelsk ord er: " + file.englishWord);
+        englishWordText.setText(file.getEnglishWord());
+        if (score == 18) {
+            JOptionPane.showMessageDialog(null, "You have now reached Medium Difficulty");
             englishWordText.setText("");
+            englishWordText.setText(file.getEnglishWord());
+            
+        }
+        if(score == 34){
+            JOptionPane.showMessageDialog(null, "Welcome to Hard level!");
+        }
+    // EASY LEVEL HER!!!!!!!!!!!!__________________________________________
+        if (score <= 17) {
             try {
                 file.readScore();
-                file.readWordFile(score);
-                
+                file.readWordFileEasy(score);
 
             } catch (IOException ex) {
                 Logger.getLogger(index.class.getName()).log(Level.SEVERE, null, ex);
             }
-            englishWordText.setText(file.englishWord);
 
-            showScore.setText("Current Score: " + score);
-
-            danishWordText.setText("");
-        } else {
-            JOptionPane.showMessageDialog(null, "Incorrect Guess!");
             englishWordText.setText(file.getEnglishWord());
+
+            if (danishWordText.getText().equalsIgnoreCase(file.getDanishWord())) {
+                score = score + 2;
+                JOptionPane.showMessageDialog(null, "Correct! \n \n "
+                        + "Current Points: " + score);
+                file.setScoreFile(score);
+                file.readScore();
+
+                englishWordText.setText("");
+                try {
+                    file.readScore();
+                    file.readWordFileEasy(score);
+
+                } catch (IOException ex) {
+                    Logger.getLogger(index.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                englishWordText.setText(file.englishWord);
+
+                showScore.setText("Current Score: " + score);
+
+                danishWordText.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "Incorrect Guess!");
+                englishWordText.setText(file.getEnglishWord());
+            }
         }
-        
-        
+        // BRUGER NÅR TIL MEDIUM LEVEL HER!!!___________________________________
+        if (score == 18 || score > 18 && score < 33) {
+            englishWordText.setText(file.getEnglishWord());
+            
+            try {
+                file.readScore();
+                file.readWordFileMedium(scoreMedium);
+
+            } catch (IOException ex) {
+                Logger.getLogger(index.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            englishWordText.setText(file.getEnglishWord());
+           
+            System.out.println(file.danishWord);
+            if (danishWordText.getText().equalsIgnoreCase(file.getDanishWord())) {
+                System.out.println("danish svar er " + file.danishWord);
+                score = score + 2;
+                file.scoreFileMedium = scoreMedium;
+                scoreMedium +=2;
+                
+                JOptionPane.showMessageDialog(null, "Correct! \n \n "
+                        + "Current Points: " + score);
+                file.setScoreFile(scoreMedium);
+                file.readScore();
+
+                englishWordText.setText("");
+                try {
+                    file.readScore();
+                    file.readWordFileMedium(scoreMedium);
+
+                } catch (IOException ex) {
+                    Logger.getLogger(index.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                englishWordText.setText(file.englishWord);
+
+                showScore.setText("Current Score: " + score);
+
+                danishWordText.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "Incorrect Guess!");
+                
+                englishWordText.setText(file.getEnglishWord());
+            }
+        } 
+            //BRUGEREN ER NÅET TIL HARD LEVEL!!!!!!____________________________
+            if(score > 36 || score == 36){
+            englishWordText.setText(file.getEnglishWord());
+            try {
+                file.readScore();
+                file.readWordFileHard(scoreHard);
+
+            } catch (IOException ex) {
+                Logger.getLogger(index.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            englishWordText.setText(file.getEnglishWord());
+           
+            System.out.println(file.danishWord);
+            if (danishWordText.getText().equalsIgnoreCase(file.getDanishWord())) {
+                System.out.println("danish svar er " + file.danishWord);
+                score = score + 2;
+                file.scoreFileHard = scoreHard;
+                scoreHard +=2;
+                
+                JOptionPane.showMessageDialog(null, "Correct! \n \n "
+                        + "Current Points: " + score);
+                file.setScoreFile(scoreHard);
+                file.readScore();
+
+                englishWordText.setText("");
+                try {
+                    file.readScore();
+                    file.readWordFileMedium(scoreHard);
+
+                } catch (IOException ex) {
+                    Logger.getLogger(index.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                englishWordText.setText(file.englishWord);
+
+                showScore.setText("Current Score: " + score);
+
+                danishWordText.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "Incorrect Guess!");
+                englishWordText.setText(file.englishWord);
+                englishWordText.setText(file.getEnglishWord());
+            }
+        }
+
+
     }//GEN-LAST:event_guessActionPerformed
+
+    private void addWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addWordActionPerformed
+        addWordIF addWord = new addWordIF();
+        addWord.setVisible(true);
+    }//GEN-LAST:event_addWordActionPerformed
+
+    private void Enter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Enter
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Enter
 
     /**
      * @param args the command line arguments
@@ -263,6 +428,7 @@ public class index extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addWord;
     private javax.swing.JTextArea danishWordText;
     private javax.swing.JTextArea englishWordText;
     private javax.swing.JButton guess;

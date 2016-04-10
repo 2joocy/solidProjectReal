@@ -11,22 +11,27 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author William
  */
 public class FileHandler {
+
     public int scoreFile;
+    public int scoreFileMedium;
+    public int scoreFileHard;
     public String danishWord;
     public String englishWord;
 
-    
     public void writeToFile(String scoreStr) {
         Writer writer = null;
 
@@ -42,74 +47,151 @@ public class FileHandler {
             }
         }
     }
-    
-    public void readWordFile(int i) throws IOException{
-     
-       //Name of the file
-       String fileName="language.txt";
-       try{
 
+    public void readWordFileEasy(int i) throws IOException {
+
+        //Name of the file
         
-          FileReader inputFile = new FileReader(fileName);
+            String fileName = "languageEasy.txt";
+            try {
 
-   
-          BufferedReader bufferReader = new BufferedReader(inputFile);
+                FileReader inputFile = new FileReader(fileName);
 
-          
-          String line;
+                BufferedReader bufferReader = new BufferedReader(inputFile);
 
-         
-          while ((line = bufferReader.readLine()) != null)   {
-           
-            String split[] = line.split(",");
-         
-            danishWord = "" + split[i];
-            englishWord = "" + split[i+1];
-              System.out.println(split.length);
-              System.out.println(danishWord);
-              System.out.println(englishWord);
-            
-            
-            
+                String line;
+
+                while ((line = bufferReader.readLine()) != null) {
+
+                    String split[] = line.split(",");
+
+                    danishWord = "" + split[i];
+                    englishWord = "" + split[i + 1];
+                    System.out.println(split.length);
+                    System.out.println(danishWord);
+                    System.out.println(englishWord);
+
+                }
+
+                bufferReader.close();
+            } catch (Exception e) {
+                System.out.println("Fejl ved linje:" + e.getMessage());
             }
-         
-          bufferReader.close();
-       }catch(Exception e){
-          System.out.println("Fejl ved linje:" + e.getMessage());                      
-       }
-    }
+        } 
+    public void readWordFileMedium(int i) throws IOException {
+
+        //Name of the file
+        
+            String fileName = "languageMedium.txt";
+            try {
+
+                FileReader inputFile = new FileReader(fileName);
+
+                BufferedReader bufferReader = new BufferedReader(inputFile);
+
+                String line;
+
+                while ((line = bufferReader.readLine()) != null) {
+
+                    String split[] = line.split(",");
+
+                    danishWord = "" + split[i];
+                    englishWord = "" + split[i + 1];
+                    System.out.println(split.length);
+                    System.out.println(danishWord);
+                    System.out.println(englishWord);
+
+                }
+
+                bufferReader.close();
+            } catch (Exception e) {
+                System.out.println("Fejl ved linje:" + e.getMessage());
+            }
+        }
+    public void readWordFileHard(int i) throws IOException {
+
+        //Name of the file
+        
+            String fileName = "languageHard.txt";
+            try {
+
+                FileReader inputFile = new FileReader(fileName);
+
+                BufferedReader bufferReader = new BufferedReader(inputFile);
+
+                String line;
+
+                while ((line = bufferReader.readLine()) != null) {
+
+                    String split[] = line.split(",");
+
+                    danishWord = "" + split[i];
+                    englishWord = "" + split[i + 1];
+                    System.out.println(split.length);
+                    System.out.println(danishWord);
+                    System.out.println(englishWord);
+
+                }
+
+                bufferReader.close();
+            } catch (Exception e) {
+                System.out.println("Fejl ved linje:" + e.getMessage());
+            }
+        } 
+
     
-    public void readScore(){
-        
-       //Name of the file
-       String fileName="score.txt";
-       try{
 
-        
-          FileReader inputFile = new FileReader(fileName);
+    public void readScore() {
 
-   
-          BufferedReader bufferReader = new BufferedReader(inputFile);
+        //Name of the file
+        String fileName = "score.txt";
+        try {
 
-          
-          String line;
+            FileReader inputFile = new FileReader(fileName);
 
-         
-          while ((line = bufferReader.readLine()) != null)   {
-           
-              scoreFile = Integer.parseInt(line);
+            BufferedReader bufferReader = new BufferedReader(inputFile);
+
+            String line;
+
+            while ((line = bufferReader.readLine()) != null) {
+
+                scoreFile = Integer.parseInt(line);
 
             }
-         
-          bufferReader.close();
-       }catch(Exception e){
-          System.out.println("Fejl ved linje:" + e.getMessage());                      
-       }
+
+            bufferReader.close();
+        } catch (Exception e) {
+            System.out.println("Fejl ved linje:" + e.getMessage());
+        }
     }
-    
-    public void addToList(){
-        
+
+    public void addWord(String danishWord, String englishWord, String difficulty) {
+
+        PrintWriter bw = null;
+
+        try {
+
+            bw = new PrintWriter(new FileWriter("language" + difficulty + ".txt", true));
+            bw.write(danishWord + "," + englishWord + ",");
+            
+            bw.flush();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        } finally {
+            if (bw != null) {
+                JOptionPane.showMessageDialog(null, "Following word has been added: "
+                        + "\n\n" + danishWord + "\n\n "
+                        + "And it's English translation is: \n\n " +
+                        englishWord + "\n\n Difficulty: " + difficulty);
+                bw.close();
+            }
+        }
     }
+
+    public void addToList() {
+
+    }
+
     public int getScoreFile() {
         return scoreFile;
     }

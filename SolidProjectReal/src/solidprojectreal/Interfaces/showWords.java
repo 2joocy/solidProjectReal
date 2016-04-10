@@ -28,7 +28,7 @@ public class showWords extends javax.swing.JFrame {
         initComponents();
         DefaultListModel<String> model = new DefaultListModel<>();
         DefaultListModel<String> model2 = new DefaultListModel<>();
-        String fileName = "language.txt";
+        String fileName = "languageEasy.txt";
         try {
 
             FileReader inputFile = new FileReader(fileName);

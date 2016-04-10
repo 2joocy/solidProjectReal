@@ -1,0 +1,1 @@
+kvalitet,quality,Hus,House,kreere,create,syv,seven,otte,eight,ni,nine,ti,ten,elleve,elleven
