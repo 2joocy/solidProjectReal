@@ -1,19 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package solidprojectreal.Interfaces;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import javax.swing.DefaultListModel;
 import solidprojectreal.Handler.FileHandler;
 
 /**
  * @author Emil Elkjær Nielsen
- * @author William
+ * @author William Pfaffe
  */
+
 public class showWords extends javax.swing.JFrame {
 
     FileHandler file = new FileHandler();
