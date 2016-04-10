@@ -25,17 +25,19 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="addWord" min="-2" pref="96" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+                      <Component id="addWord" min="-2" pref="100" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="guess" max="32767" attributes="0"/>
                           <Component id="saveScore" max="32767" attributes="0"/>
                           <Component id="openShowWords" pref="151" max="32767" attributes="0"/>
                       </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="lookUp" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
                       <Component id="showScore" alignment="0" max="32767" attributes="0"/>
@@ -87,6 +89,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="saveScore" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="addWord" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lookUp" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="openShowWords" min="-2" max="-2" attributes="0"/>
@@ -183,6 +186,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addWordActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="lookUp">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Look Up"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lookUpActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

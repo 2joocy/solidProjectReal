@@ -21,6 +21,7 @@ public class index extends javax.swing.JFrame {
      * Creates new form index
      */
     FileHandler file = new FileHandler();
+    
     public int score;
     public int scoreMedium;
     public int scoreHard;
@@ -108,6 +109,7 @@ public class index extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         addWord = new javax.swing.JButton();
+        lookUp = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -162,21 +164,30 @@ public class index extends javax.swing.JFrame {
             }
         });
 
+        lookUp.setText("Look Up");
+        lookUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lookUpActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(addWord, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61)
+                        .addComponent(addWord, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(guess, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(saveScore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(openShowWords, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)))
+                            .addComponent(openShowWords, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lookUp, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(showScore, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -216,7 +227,8 @@ public class index extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveScore)
-                    .addComponent(addWord))
+                    .addComponent(addWord)
+                    .addComponent(lookUp))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(openShowWords)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -299,14 +311,17 @@ public class index extends javax.swing.JFrame {
             try {
                 file.readScore();
                 file.readWordFileMedium(scoreMedium);
+                file.getDanishWord();
+                file.getEnglishWord();
+                englishWordText.setText(file.getEnglishWord());
 
             } catch (IOException ex) {
                 Logger.getLogger(index.class.getName()).log(Level.SEVERE, null, ex);
             }
-            englishWordText.setText(file.getEnglishWord());
+            
            
             System.out.println(file.danishWord);
-            if (danishWordText.getText().equalsIgnoreCase(file.getDanishWord())) {
+            if (danishWordText.getText().equalsIgnoreCase(file.danishWord)) {
                 System.out.println("danish svar er " + file.danishWord);
                 score = score + 2;
                 file.scoreFileMedium = scoreMedium;
@@ -315,9 +330,9 @@ public class index extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Correct! \n \n "
                         + "Current Points: " + score);
                 file.setScoreFile(scoreMedium);
-                file.readScore();
+                
 
-                englishWordText.setText("");
+                
                 try {
                     file.readScore();
                     file.readWordFileMedium(scoreMedium);
@@ -392,6 +407,10 @@ public class index extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Enter
 
+    private void lookUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lookUpActionPerformed
+        file.lookUpWord(file.englishWord);
+    }//GEN-LAST:event_lookUpActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -439,6 +458,7 @@ public class index extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JButton lookUp;
     private javax.swing.JButton openShowWords;
     private javax.swing.JButton saveScore;
     private javax.swing.JLabel showScore;
