@@ -11,7 +11,7 @@ import javax.swing.DefaultListModel;
 import solidprojectreal.Handler.FileHandler;
 
 /**
- *
+ * @author Emil Elkjær Nielsen
  * @author William
  */
 public class showWords extends javax.swing.JFrame {
@@ -26,36 +26,9 @@ public class showWords extends javax.swing.JFrame {
 
     public showWords() {
         initComponents();
-        DefaultListModel<String> model = new DefaultListModel<>();
-        DefaultListModel<String> model2 = new DefaultListModel<>();
-        String fileName = "languageEasy.txt";
-        try {
-
-            FileReader inputFile = new FileReader(fileName);
-
-            BufferedReader bufferReader = new BufferedReader(inputFile);
-
-            String line;
-
-            while ((line = bufferReader.readLine()) != null) {
-                String split[] = line.split(",");
-                for (int i = 0; i < split.length; i+=2) {
-                    
-                    danishWord = "" + split[i];
-                    englishWord = "" + split[i + 1];
-                    model.addElement(danishWord);
-                    model2.addElement(englishWord);
-                    danishWordList.setModel(model);
-                    englishWordList.setModel(model2);
-                    //System.out.println(englishWord);
-                }
-
-            }
-
-            bufferReader.close();
-        } catch (Exception e) {
-            System.out.println("Fejl ved linje:" + e.getMessage());
-        }
+       file.showWords("Easy", easyWordList);
+       file.showWords("Medium", mediumWordList);
+       file.showWords("Hard", hardWordList);
     }
 
     /**
@@ -68,27 +41,39 @@ public class showWords extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        danishWordList = new javax.swing.JList<>();
+        easyWordList = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        englishWordList = new javax.swing.JList<>();
+        mediumWordList = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        hardWordList = new javax.swing.JList<>();
+        jLabel4 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        danishWordList.setPreferredSize(new java.awt.Dimension(33, 85));
-        jScrollPane1.setViewportView(danishWordList);
+        easyWordList.setPreferredSize(new java.awt.Dimension(33, 85));
+        jScrollPane1.setViewportView(easyWordList);
 
-        jLabel1.setText("Danish Words");
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Easy Words");
 
-        jScrollPane2.setViewportView(englishWordList);
+        jScrollPane2.setViewportView(mediumWordList);
 
-        jLabel2.setText("English Words");
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Medium Words");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("WORD VIEWER");
+
+        hardWordList.setToolTipText("");
+        hardWordList.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane3.setViewportView(hardWordList);
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Hard Words");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,12 +85,16 @@ public class showWords extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -117,11 +106,13 @@ public class showWords extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane3))
                 .addContainerGap())
         );
 
@@ -164,12 +155,15 @@ public class showWords extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> danishWordList;
-    private javax.swing.JList<String> englishWordList;
+    private javax.swing.JList<String> easyWordList;
+    private javax.swing.JList<String> hardWordList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JList<String> mediumWordList;
     // End of variables declaration//GEN-END:variables
 }
