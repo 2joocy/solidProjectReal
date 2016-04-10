@@ -6,7 +6,6 @@
 package solidprojectreal;
 
 import java.io.IOException;
-import solidprojectreal.Handler.FileHandler;
 import solidprojectreal.Interfaces.index;
 
 /**
@@ -17,6 +16,7 @@ public class SolidProjectReal {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {
         index index = new index();
