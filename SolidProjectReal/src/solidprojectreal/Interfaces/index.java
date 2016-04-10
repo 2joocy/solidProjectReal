@@ -409,6 +409,7 @@ public class index extends javax.swing.JFrame {
 
     private void lookUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lookUpActionPerformed
         file.lookUpWord(file.englishWord);
+        
     }//GEN-LAST:event_lookUpActionPerformed
 
     /**
